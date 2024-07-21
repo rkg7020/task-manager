@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -46,6 +47,12 @@ public class TaskController {
     @RequestMapping("category/{id}")
     public ResponseEntity<List<Task>> getTasksByCategory(@PathVariable Long id) {
         List<Task> tasks = taskService.getTasksByCategory(id);
+        return ResponseEntity.ok(tasks);
+    }
+    @GetMapping("/duedate/{dueDate}")
+    public ResponseEntity<List<Task>> getTasksByDueDate(@PathVariable String dueDate) {
+        LocalDate date = LocalDate.parse(dueDate);
+        List<Task> tasks = taskService.getTasksByDueDate(date);
         return ResponseEntity.ok(tasks);
     }
 
